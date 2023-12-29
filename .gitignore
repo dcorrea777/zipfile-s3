@@ -1,0 +1,4 @@
+*.txt
+vendor
+.env
+composer.lock

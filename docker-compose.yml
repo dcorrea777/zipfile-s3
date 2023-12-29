@@ -1,0 +1,26 @@
+version: "3.5"
+
+networks:
+    application:
+        name: net-minio
+
+volumes:
+    storage:
+        name: storage-minio
+
+services:
+    storage:
+        image: quay.io/minio/minio:latest
+        container_name: storage
+        command: server /data --console-address ":9001"
+        restart: unless-stopped
+        networks:
+            - application
+        environment:
+            - MINIO_ROOT_USER=admin
+            - MINIO_ROOT_PASSWORD=supersecret
+        ports:
+            - '9000:9000'
+            - '9001:9001'
+        volumes:
+            - storage:/data
